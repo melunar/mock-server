@@ -6,7 +6,12 @@ const { babel, getBabelOutputPlugin } = require("@rollup/plugin-babel");
 const del = require("rollup-plugin-delete");
 const json = require("@rollup/plugin-json");
 const commonjs = require("@rollup/plugin-commonjs");
+const resolve = require('rollup-plugin-node-resolve');
+// const ss = require('rollup-plugin-commonjs')
 const { terser } = require("rollup-plugin-terser");
+
+// npm install --save-dev rollup-plugin-node-resolve rollup-plugin-commonjs
+
 
 // 获取根目录的'package.json'
 const packageJSON = require("./package.json");
@@ -21,7 +26,12 @@ const inputOptions = {
   plugins: [
     // 打包前先清空输出文件夹
     del({ targets: "./dist/*" }),
-
+    resolve({
+      jsnext: true,  // 该属性是指定将Node包转换为ES2015模块
+      // main 和 browser 属性将使插件决定将那些文件应用到bundle中
+      main: true,  // Default: true 
+      browser: true // Default: false
+    }),
     // babel 相关的配置, 主要是做兼容
     getBabelOutputPlugin({
       presets: [["@babel/preset-env", { targets: { node: "current" } }]],

@@ -10,5 +10,5 @@ app.use(async (ctx, next) => {
 
 app.use(routes)
 
-app.listen(3000)
-console.log('listening 3000...')
+app.listen(3050)
+console.log('listening 3050...')
